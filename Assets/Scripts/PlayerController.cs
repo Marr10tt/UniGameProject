@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Data;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject crosshair;
     [SerializeField] Canvas victoryScreen;
     [SerializeField] Canvas deathScreen;
+    Slider healthBar;
+    [SerializeField] Gradient healthBarGradient;
+    [SerializeField] Image healthBarFill;
 
     
     bool isAiming;
@@ -44,13 +49,17 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         mainCam = GetComponentInChildren<Camera>();
+        healthBar = GetComponentInChildren<Slider>();
 
         //sets timescale to 1 in case of restart on death - otherwise the game is effectively unplayable after death
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
+        healthBarFill.color = healthBarGradient.Evaluate(1f);
 
         ammoInGun = 20;
         totalAmmo = 60;
+        healthBar.maxValue = health;
+        healthBar.value = health;
 
         inVictoryArea = false;
         victoryScreen.enabled = false;
@@ -83,6 +92,9 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E)){
                 StartCoroutine(Victory(5));
             }
+        }
+        if(Input.GetKeyDown(KeyCode.Space)){
+            takeDamage(20);
         }
     }
 
@@ -173,6 +185,8 @@ public class PlayerController : MonoBehaviour
     }
     public void takeDamage(float damage){
         health -= damage;
+        healthBar.value = health;
+        healthBarFill.color = healthBarGradient.Evaluate(healthBar.normalizedValue);
 
         if (health <= 0){
             StartCoroutine(OnDeath(5));
