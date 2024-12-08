@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Uni Stealth Game.sln"
+    "dotnet.defaultSolution": "UniGameProject.sln"
 }
