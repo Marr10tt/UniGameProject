@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     Slider healthBar;
     [SerializeField] Gradient healthBarGradient;
     [SerializeField] Image healthBarFill;
-
+    [SerializeField] GameObject finishPrompt;
     
     bool isAiming;
     float horizontalInput;
@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
         victoryScreen.enabled = false;
         deathScreen.enabled = false;
         crosshair.SetActive(false);
+        finishPrompt.SetActive(false);
     }
 
     void Update(){
@@ -87,14 +88,12 @@ public class PlayerController : MonoBehaviour
             }
             Debug.Log(totalAmmo);
         }
+        //if the player is in the victory area and interacts, start the victory coroutine
         if(inVictoryArea == true){
             Debug.Log("In Victory Area");
             if(Input.GetKeyDown(KeyCode.E)){
                 StartCoroutine(Victory(5));
             }
-        }
-        if(Input.GetKeyDown(KeyCode.Space)){
-            takeDamage(20);
         }
     }
 
@@ -195,6 +194,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Victory(float seconds){
         Time.timeScale = 0;
         victoryScreen.enabled = true;
+        finishPrompt.SetActive(false);
         yield return new WaitForSecondsRealtime(seconds);
         SceneManager.LoadScene("MainMenu");
     }
@@ -209,11 +209,13 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if (other.tag == "VictoryArea"){
             inVictoryArea = true;
+            finishPrompt.SetActive(true);
         }
     }
     void OnTriggerExit(Collider other){
         if (other.tag == "VictoryArea"){
             inVictoryArea = false;
+            finishPrompt.SetActive(false);
         }
     }
 }
