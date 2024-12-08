@@ -1,5 +1,7 @@
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,16 +15,24 @@ public class PlayerController : MonoBehaviour
 
     [Header("Aiming")]
     public CinemachineFreeLook cam;
-    [SerializeField] GameObject crosshair;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform debugTransform;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private AudioSource gunSounds;
+    float ammoInGun;
+    float totalAmmo;
+
+    [Header("UI Elements")]
+    [SerializeField] GameObject crosshair;
+    [SerializeField] Canvas victoryScreen;
+    [SerializeField] Canvas deathScreen;
+
     
     bool isAiming;
     float horizontalInput;
     float verticalInput;
 
+    bool inVictoryArea;
     Vector3 moveDirection;
     Vector2 screenCentre = new Vector2(Screen.width/2,Screen.height/2);
     
@@ -35,14 +45,36 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         mainCam = GetComponentInChildren<Camera>();
 
+        //sets timescale to 1 in case of restart on death - otherwise the game is effectively unplayable after death
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        ammoInGun = 20;
+        totalAmmo = 60;
+
+        inVictoryArea = false;
+        victoryScreen.enabled = false;
+        deathScreen.enabled = false;
         crosshair.SetActive(false);
     }
 
     void Update(){
         InputHandler();
         Aiming();
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
+        if(Input.GetKeyDown(KeyCode.Mouse0) && ammoInGun >0){
             Shooting();
+        }
+        if(Input.GetKeyDown(KeyCode.R) && ammoInGun <20 && totalAmmo >0){
+            totalAmmo = totalAmmo+ammoInGun;
+            ammoInGun = 20;
+            totalAmmo = totalAmmo-20;
+            Debug.Log(totalAmmo);
+        }
+        if(inVictoryArea == true){
+            Debug.Log("In Victory Area");
+            if(Input.GetKeyDown(KeyCode.E)){
+                StartCoroutine(Victory(5));
+            }
         }
     }
 
@@ -121,9 +153,10 @@ public class PlayerController : MonoBehaviour
             Ray ray = mainCam.ScreenPointToRay(screenCentre);
             muzzleFlash.Play();
             gunSounds.Play();
+            ammoInGun--;
+            Debug.Log(ammoInGun);
             if (Physics.Raycast(ray, out RaycastHit hit, 999f, aimColliderLayerMask)){
                 debugTransform.position = hit.point;
-                Debug.Log(hit.transform.gameObject.tag); //moves green debug ball to hit point
                 if(hit.transform.gameObject.tag=="Enemy"){
                     hit.transform.GetComponent<EnemyManager>().takeDamage(damageDealt);
                 }
@@ -132,8 +165,33 @@ public class PlayerController : MonoBehaviour
     }
     public void takeDamage(float damage){
         health -= damage;
+
         if (health <= 0){
-            Debug.Log("Dead");
+            StartCoroutine(OnDeath(5));
+        }
+    }
+    IEnumerator Victory(float seconds){
+        Time.timeScale = 0;
+        victoryScreen.enabled = true;
+        yield return new WaitForSecondsRealtime(seconds);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    IEnumerator OnDeath(float seconds){
+        Time.timeScale = 0;
+        deathScreen.enabled = true;
+        yield return new WaitForSecondsRealtime(seconds);
+        SceneManager.LoadScene("Level 1");
+    }
+
+    void OnTriggerEnter(Collider other){
+        if (other.tag == "VictoryArea"){
+            inVictoryArea = true;
+        }
+    }
+    void OnTriggerExit(Collider other){
+        if (other.tag == "VictoryArea"){
+            inVictoryArea = false;
         }
     }
 }

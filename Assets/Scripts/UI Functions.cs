@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIFunctions : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class UIFunctions : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if ((Input.GetKeyDown(KeyCode.Escape)) && Time.timeScale != 0){
             if(uiEnabled == false){
                 Pause();
             }
@@ -28,17 +29,17 @@ public class UIFunctions : MonoBehaviour
         uiEnabled = true;
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
-        Debug.Log("pausing");
     }
     public void Resume(){
         canvas.enabled = false;
         uiEnabled = false;
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
-        Debug.Log("resuming");
     }
-    public void ExitGame(){
-        Debug.Log("Exiting");
+    public void ExitToMenu(){
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void ExitToDesktop(){
         Application.Quit();
     }
 }
