@@ -65,9 +65,17 @@ public class PlayerController : MonoBehaviour
             Shooting();
         }
         if(Input.GetKeyDown(KeyCode.R) && ammoInGun <20 && totalAmmo >0){
-            totalAmmo = totalAmmo+ammoInGun;
-            ammoInGun = 20;
-            totalAmmo = totalAmmo-20;
+            if(totalAmmo+ammoInGun >= 20){
+                totalAmmo = totalAmmo+ammoInGun;
+                ammoInGun = 20;
+                totalAmmo = totalAmmo-20;
+            }
+            else{
+                totalAmmo = totalAmmo + ammoInGun;
+                ammoInGun = totalAmmo;
+                totalAmmo = 0;
+                Debug.Log("no more ammo");
+            }
             Debug.Log(totalAmmo);
         }
         if(inVictoryArea == true){
