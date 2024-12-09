@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySight : MonoBehaviour
@@ -49,9 +50,14 @@ public class EnemySight : MonoBehaviour
             RaycastHit hit; //hit provides information about what the raycast comes into contact with
             if (Physics.Linecast(lineOrigin.transform.position, lineTarget.transform.position, out hit)){
                 Debug.Log(hit.collider);
-                parentScript.playerInSights=true;
+                StartCoroutine(realiseTimer());
                 //alertSound.Play();
             }
         }
+    }
+
+    IEnumerator realiseTimer(){
+        yield return new WaitForSecondsRealtime(1);
+        parentScript.playerInSights = true;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -15,9 +16,17 @@ public class EnemyManager : MonoBehaviour
         if (health <= 0){
             Kill();
         }
+        else{
+            StartCoroutine(realiseTimer());
+        }
     }
 
     private void Kill(){
         agent.stateMachine.ChangeState(AiStateId.Death);
+    }
+
+    IEnumerator realiseTimer(){
+        yield return new WaitForSeconds(1);
+        agent.stateMachine.ChangeState(AiStateId.Attack);
     }
 }
