@@ -7,6 +7,7 @@ public class AiAttackState : AiState
     private float fireRate = 5;
     private float timeToFire = 0f;
     private float damageDealt = 1;
+    private float ammoInGun = 15;
     public AiStateId GetId()
     {
         return AiStateId.Attack;
@@ -15,36 +16,49 @@ public class AiAttackState : AiState
     public void Enter(AiAgent agent)
     {
         //sets the target to be the player
-        agent.navMeshAgent.stoppingDistance = 5;
+        agent.navMeshAgent.stoppingDistance = 8;
+        agent.navMeshAgent.speed = 6;
         agent.navMeshAgent.SetDestination(agent.gameObject.transform.position);
         agent.animator.SetFloat("Speed", 0);
         agent.animator.SetBool("IsAiming", true);
 
+        //alerts all other agents in the group to attack
         foreach (AiAgent currentAgent in agent.aiAgents){
             if(currentAgent.stateMachine.currentState !=  AiStateId.Attack){
                 currentAgent.stateMachine.ChangeState(AiStateId.Attack);
             }
         }
-        //sets other grouped agents to attack
     }
 
     public void Update(AiAgent agent)
     {  
-        agent.navMeshAgent.SetDestination(agent.playerRef.transform.position);
+        //change animation based on agent speed, if not moving, stop walk animation
+        if(agent.navMeshAgent.velocity.magnitude <= 0.15f){
+            agent.animator.SetFloat("Speed", 0);
+        }
+        else{
+            agent.animator.SetFloat("Speed", 4);
+        }
 
         Debug.Log("enemy is attacking");
         agent.head.transform.LookAt(new Vector3(agent.playerRef.transform.position.x, agent.transform.position.y, agent.playerRef.transform.position.z ));
             RaycastHit hit; //hit provides information about what the raycast comes into contact with
-            if (Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity)){
+            //checks if hit the correct thing + has ammo in gun
+            if (Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity) && ammoInGun>0){
                 if(hit.transform.tag == "Player"){
-                    //shoots when ready
+                    //shoots when ready and carries on moving to player
                     if(Time.time>=timeToFire){
                         timeToFire = Time.time + 1f/fireRate;
                         agent.playerRef.GetComponent<PlayerController>().takeDamage(damageDealt);
                         agent.muzzleFlash.Play();
                         agent.gunSounds.Play();
+                        ammoInGun--;
+                        agent.navMeshAgent.SetDestination(agent.playerRef.transform.position);
                     }
                 }
+            }
+            else{
+                agent.navMeshAgent.destination = agent.transform.position;
             }
     }
 

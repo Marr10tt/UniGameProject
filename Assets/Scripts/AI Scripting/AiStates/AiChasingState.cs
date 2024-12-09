@@ -19,11 +19,11 @@ public class AiChasingState : AiState
         agent.navMeshAgent.SetDestination(agent.waypoints[0].position);
 
         //change animation based on distance to finish point, if not moving, stop walk animation
-        if(Vector3.Distance(agent.waypoints[0].position, agent.transform.position) <= 0.15f){
+        if(agent.navMeshAgent.velocity.magnitude <= 0.15f){
             agent.animator.SetFloat("Speed", 0);
         }
         else{
-            agent.animator.SetFloat("Speed", 2);
+            agent.animator.SetFloat("Speed", 1.5f);
         }
 
         //checks player visibility, if visible, enemy stops
