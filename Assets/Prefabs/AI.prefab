@@ -16583,7 +16583,7 @@ GameObject:
   - component: {fileID: 7231888962464462752}
   - component: {fileID: 2025403876765026887}
   m_Layer: 0
-  m_Name: TestAI
+  m_Name: AI
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

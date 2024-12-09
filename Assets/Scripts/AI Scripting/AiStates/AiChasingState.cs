@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 public class AiChasingState : AiState
 {
@@ -11,7 +12,13 @@ public class AiChasingState : AiState
     public void Enter(AiAgent agent)
     {
         agent.animator.SetFloat("Speed", 2);
-        agent.navMeshAgent.SetDestination(agent.waypoints[0].position);
+
+        if(!agent.waypoints.Any()){
+            agent.stateMachine.ChangeState(AiStateId.Idle);
+        }
+        else{
+            agent.navMeshAgent.SetDestination(agent.waypoints[0].position);
+        }
     }
 
     public void Update(AiAgent agent)
