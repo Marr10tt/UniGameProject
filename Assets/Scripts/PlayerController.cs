@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Data;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Gradient healthBarGradient;
     [SerializeField] Image healthBarFill;
     [SerializeField] GameObject finishPrompt;
+    [SerializeField] TMP_Text ammoInGunText;
+    [SerializeField] TMP_Text totalAmmoText;
     
     bool isAiming;
     float horizontalInput;
@@ -54,12 +57,14 @@ public class PlayerController : MonoBehaviour
         //sets timescale to 1 in case of restart on death - otherwise the game is effectively unplayable after death
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
-        healthBarFill.color = healthBarGradient.Evaluate(1f);
 
         ammoInGun = 20;
         totalAmmo = 60;
         healthBar.maxValue = health;
         healthBar.value = health;
+        healthBarFill.color = healthBarGradient.Evaluate(1f);
+        totalAmmoText.text = totalAmmo.ToString();
+        ammoInGunText.text = ammoInGun.ToString();
 
         inVictoryArea = false;
         victoryScreen.enabled = false;
@@ -86,7 +91,8 @@ public class PlayerController : MonoBehaviour
                 totalAmmo = 0;
                 Debug.Log("no more ammo");
             }
-            Debug.Log(totalAmmo);
+            totalAmmoText.text = totalAmmo.ToString();
+            ammoInGunText.text = ammoInGun.ToString();
         }
         //if the player is in the victory area and interacts, start the victory coroutine
         if(inVictoryArea == true){
@@ -173,6 +179,7 @@ public class PlayerController : MonoBehaviour
             muzzleFlash.Play();
             gunSounds.Play();
             ammoInGun--;
+            ammoInGunText.text = ammoInGun.ToString();
             Debug.Log(ammoInGun);
             if (Physics.Raycast(ray, out RaycastHit hit, 999f, aimColliderLayerMask)){
                 debugTransform.position = hit.point;
