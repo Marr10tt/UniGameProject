@@ -19,7 +19,9 @@ public class AiAttackState : AiState
         agent.animator.SetBool("IsAiming", true);
 
         foreach (AiAgent currentAgent in agent.aiAgents){
-            currentAgent.stateMachine.ChangeState(AiStateId.Attack);
+            if(currentAgent.stateMachine.currentState !=  AiStateId.Attack){
+                currentAgent.stateMachine.ChangeState(AiStateId.Attack);
+            }
         }
         //sets other grouped agents to attack
     }
