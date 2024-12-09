@@ -16,12 +16,16 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public Transform orientation;
 
-    [Header("Aiming")]
+    [Header("Aiming And Shooting")]
     public CinemachineFreeLook cam;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     [SerializeField] private Transform debugTransform;
     [SerializeField] private ParticleSystem muzzleFlash;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource reloadSound;
     [SerializeField] private AudioSource gunSounds;
+    private float reloading;
     float ammoInGun;
     float totalAmmo;
 
@@ -60,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
         ammoInGun = 20;
         totalAmmo = 60;
+        reloading = 0;
         healthBar.maxValue = health;
         healthBar.value = health;
         healthBarFill.color = healthBarGradient.Evaluate(1f);
@@ -76,7 +81,7 @@ public class PlayerController : MonoBehaviour
     void Update(){
         InputHandler();
         Aiming();
-        if(Input.GetKeyDown(KeyCode.Mouse0) && ammoInGun >0){
+        if(Input.GetKeyDown(KeyCode.Mouse0) && ammoInGun >0 && Time.time > reloading){
             Shooting();
         }
         if(Input.GetKeyDown(KeyCode.R) && ammoInGun <20 && totalAmmo >0){
@@ -84,15 +89,18 @@ public class PlayerController : MonoBehaviour
                 totalAmmo = totalAmmo+ammoInGun;
                 ammoInGun = 20;
                 totalAmmo = totalAmmo-20;
+                reloading = Time.time + 2;
             }
             else{
                 totalAmmo = totalAmmo + ammoInGun;
                 ammoInGun = totalAmmo;
                 totalAmmo = 0;
                 Debug.Log("no more ammo");
+                reloading = Time.time + 2;
             }
             totalAmmoText.text = totalAmmo.ToString();
             ammoInGunText.text = ammoInGun.ToString();
+            reloadSound.Play();
         }
         //if the player is in the victory area and interacts, start the victory coroutine
         if(inVictoryArea == true){

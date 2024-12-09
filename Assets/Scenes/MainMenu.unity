@@ -8614,13 +8614,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901268426}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: -0.6426202, y: 0.21047325, z: -0.20456421, w: -0.7077385}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 84.7, y: -22.27, z: 371.9}
 --- !u!1001 &904892216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12462,7 +12462,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GAME TITLE
+  m_Text: Skibidi Shooter
 --- !u!222 &1387959711
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14564,6 +14564,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000010230679374, guid: fee6e1da33beae9409089ab8a832464f, type: 3}
   m_PrefabInstance: {fileID: 1596154311}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1609251984
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923921577363075524, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405820857690496105, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
+      propertyPath: m_Name
+      value: Background Music
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30505c6aa5e142741a0e2d32dbe21fd6, type: 3}
 --- !u!1001 &1615571133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18373,3 +18430,4 @@ SceneRoots:
   - {fileID: 415103065}
   - {fileID: 725866743}
   - {fileID: 8090743}
+  - {fileID: 1609251984}

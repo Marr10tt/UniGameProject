@@ -44,7 +44,7 @@ public class AiAttackState : AiState
         agent.head.transform.LookAt(new Vector3(agent.playerRef.transform.position.x, agent.transform.position.y, agent.playerRef.transform.position.z ));
             RaycastHit hit; //hit provides information about what the raycast comes into contact with
             //checks if hit the correct thing + has ammo in gun
-            if (Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity) && ammoInGun>0){
+            if (Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity) && ammoInGun>0 && agent.navMeshAgent.remainingDistance < 20){
                 if(hit.transform.tag == "Player"){
                     //shoots when ready and carries on moving to player
                     if(Time.time>=timeToFire){
@@ -56,6 +56,9 @@ public class AiAttackState : AiState
                         agent.navMeshAgent.SetDestination(agent.playerRef.transform.position);
                     }
                 }
+            }
+            else if(agent.navMeshAgent.remainingDistance>=16){
+                agent.navMeshAgent.destination = agent.playerRef.transform.position;
             }
             else{
                 agent.navMeshAgent.destination = agent.transform.position;
