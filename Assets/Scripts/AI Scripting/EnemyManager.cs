@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator realiseTimer(){
         yield return new WaitForSeconds(1);
+
         agent.stateMachine.ChangeState(AiStateId.Attack);
     }
 }
