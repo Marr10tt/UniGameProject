@@ -19,6 +19,13 @@ public class AiAgent : MonoBehaviour
     public AudioSource gunSounds;
     public List<AiAgent> aiAgents;
 
+    [Header("Weapon Variables")]
+    public float fireRate = 5;
+    public float timeToFire = 0f;
+    public float damageDealt = 5;
+    public float ammoInGun = 15;
+    private float reloadTime = 2;
+
     void Start(){
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -36,5 +43,10 @@ public class AiAgent : MonoBehaviour
 
     void Update(){
         stateMachine.Update();
+    }
+
+    public void AIReload(){
+        timeToFire = Time.time + reloadTime;
+        ammoInGun = 15;
     }
 }

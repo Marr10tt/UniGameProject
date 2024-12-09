@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class AiAttackState : AiState
 {
-    private float fireRate = 5;
-    private float timeToFire = 0f;
-    private float damageDealt = 5;
-    private float ammoInGun = 15;
+
     public AiStateId GetId()
     {
         return AiStateId.Attack;
@@ -44,18 +41,25 @@ public class AiAttackState : AiState
         agent.head.transform.LookAt(new Vector3(agent.playerRef.transform.position.x, agent.transform.position.y, agent.playerRef.transform.position.z ));
             RaycastHit hit; //hit provides information about what the raycast comes into contact with
             //checks if hit the correct thing + has ammo in gun + is in engagement range
-            if (Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity) && ammoInGun>0 && agent.navMeshAgent.remainingDistance < 20){
+            if (Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity) && agent.ammoInGun>0 && agent.navMeshAgent.remainingDistance < 20){
                 if(hit.transform.tag == "Player"){
                     //shoots when ready and carries on moving to player
-                    if(Time.time>=timeToFire){
-                        timeToFire = Time.time + 1f/fireRate;
-                        agent.playerRef.GetComponent<PlayerController>().takeDamage(damageDealt);
+                    if(Time.time>=agent.timeToFire){
+                        agent.timeToFire = Time.time + 1f/agent.fireRate;
+                        //simulates a 20% chance of an AI "missing"
+                        if(Random.Range(1,5) >2){
+                            agent.playerRef.GetComponent<PlayerController>().takeDamage(agent.damageDealt);
+                        }
                         agent.muzzleFlash.Play();
                         agent.gunSounds.Play();
-                        ammoInGun--;
+                        agent.ammoInGun--;
                         agent.navMeshAgent.SetDestination(agent.playerRef.transform.position);
                     }
                 }
+            }
+            // if out of ammo - reload
+            else if(Physics.Raycast(agent.lineOrigin.transform.position, agent.transform.forward, out hit, Mathf.Infinity) && agent.ammoInGun<=0 && agent.navMeshAgent.remainingDistance < 20){
+                agent.AIReload();
             }
             //if out of ammo or out of engagement range, move closer or stay where they are
             else if(agent.navMeshAgent.remainingDistance>=16){
@@ -68,7 +72,7 @@ public class AiAttackState : AiState
 
     public void Exit(AiAgent agent)
     {
-        timeToFire = 0f;
+        agent.timeToFire = 0f;
         agent.animator.SetBool("IsAiming", false);
     }
 }

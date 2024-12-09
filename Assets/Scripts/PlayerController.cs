@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         ammoInGun = 20;
-        totalAmmo = 60;
+        totalAmmo = 80;
         reloading = 0;
         healthBar.maxValue = health;
         healthBar.value = health;
