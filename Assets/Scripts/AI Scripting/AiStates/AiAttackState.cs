@@ -1,6 +1,5 @@
 
-using JetBrains.Annotations;
-using UnityEditor.Callbacks;
+using System.Collections;
 using UnityEngine;
 
 public class AiAttackState : AiState
@@ -18,6 +17,11 @@ public class AiAttackState : AiState
         agent.navMeshAgent.SetDestination(agent.gameObject.transform.position);
         agent.animator.SetFloat("Speed", 0);
         agent.animator.SetBool("IsAiming", true);
+
+        foreach (AiAgent currentAgent in agent.aiAgents){
+            currentAgent.stateMachine.ChangeState(AiStateId.Attack);
+        }
+        //sets other grouped agents to attack
     }
 
     public void Update(AiAgent agent)
@@ -34,9 +38,6 @@ public class AiAttackState : AiState
                         agent.muzzleFlash.Play();
                         agent.gunSounds.Play();
                     }
-                }
-                else{
-                    //do nothing
                 }
             }
     }

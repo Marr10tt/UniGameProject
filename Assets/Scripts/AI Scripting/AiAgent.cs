@@ -17,6 +17,8 @@ public class AiAgent : MonoBehaviour
     public Rigidbody rb;
     public ParticleSystem muzzleFlash;
     public AudioSource gunSounds;
+    public List<AiAgent> aiAgents;
+
     void Start(){
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
