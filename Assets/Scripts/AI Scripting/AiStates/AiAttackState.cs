@@ -14,24 +14,23 @@ public class AiAttackState : AiState
 
     public void Enter(AiAgent agent)
     {
+        //sets the target to be the player
+        agent.navMeshAgent.stoppingDistance = 5;
         agent.navMeshAgent.SetDestination(agent.gameObject.transform.position);
         agent.animator.SetFloat("Speed", 0);
         agent.animator.SetBool("IsAiming", true);
+
+        foreach (AiAgent currentAgent in agent.aiAgents){
+            if(currentAgent.stateMachine.currentState !=  AiStateId.Attack){
+                currentAgent.stateMachine.ChangeState(AiStateId.Attack);
+            }
+        }
         //sets other grouped agents to attack
     }
 
     public void Update(AiAgent agent)
     {  
         agent.navMeshAgent.SetDestination(agent.playerRef.transform.position);
-        agent.navMeshAgent.stoppingDistance = 1;
-        foreach (AiAgent currentAgent in agent.aiAgents){
-            if(currentAgent.stateMachine.currentState !=  AiStateId.Attack){
-                currentAgent.stateMachine.ChangeState(AiStateId.Attack);
-                //currentAgent.navMeshAgent.SetDestination(currentAgent.playerRef.transform.position);
-                //currentAgent.navMeshAgent.stoppingDistance = 1;
-            }
-        }
-
 
         Debug.Log("enemy is attacking");
         agent.head.transform.LookAt(new Vector3(agent.playerRef.transform.position.x, agent.transform.position.y, agent.playerRef.transform.position.z ));
