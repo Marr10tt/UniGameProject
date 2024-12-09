@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0;
         deathScreen.enabled = true;
         yield return new WaitForSecondsRealtime(seconds);
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnTriggerEnter(Collider other){
