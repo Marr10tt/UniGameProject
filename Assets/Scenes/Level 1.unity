@@ -5555,6 +5555,22 @@ PrefabInstance:
       propertyPath: aiAgents.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[0]
+      value: 
+      objectReference: {fileID: 1554385563}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[1]
+      value: 
+      objectReference: {fileID: 2094537453}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[2]
+      value: 
+      objectReference: {fileID: 1383476692}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[3]
+      value: 
+      objectReference: {fileID: 1886994026}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13251,6 +13267,22 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[0]
+      value: 
+      objectReference: {fileID: 1554385563}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[1]
+      value: 
+      objectReference: {fileID: 633314149}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[2]
+      value: 
+      objectReference: {fileID: 2094537453}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[3]
+      value: 
+      objectReference: {fileID: 1886994026}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 1204408967}
@@ -14706,6 +14738,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1333859264764246476, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
   m_PrefabInstance: {fileID: 1554385561}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1554385563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+  m_PrefabInstance: {fileID: 1554385561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d24f159678b9114f9993149d16d8ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1555091535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18837,6 +18880,22 @@ PrefabInstance:
       propertyPath: aiAgents.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[0]
+      value: 
+      objectReference: {fileID: 1554385563}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[1]
+      value: 
+      objectReference: {fileID: 633314149}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[2]
+      value: 
+      objectReference: {fileID: 2094537453}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[3]
+      value: 
+      objectReference: {fileID: 1383476692}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20577,6 +20636,22 @@ PrefabInstance:
       propertyPath: aiAgents.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[0]
+      value: 
+      objectReference: {fileID: 1554385563}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[1]
+      value: 
+      objectReference: {fileID: 633314149}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[2]
+      value: 
+      objectReference: {fileID: 1383476692}
+    - target: {fileID: 7612067099818467960, guid: a0d0cb2260455c648825f6f7d9f55b63, type: 3}
+      propertyPath: aiAgents.Array.data[3]
+      value: 
+      objectReference: {fileID: 1886994026}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
